@@ -71,8 +71,8 @@ export function Signup() {
 
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 
-                                {error && <p style={{color: 'red'}}>{error}</p>}
-                                {errors.name && <p style={{color: 'red'}}>{errors.name.message}</p>}
+                                {error && <p className='text-danger'>{error}</p>}
+                                {errors.name && <p className='text-danger'>{errors.name.message}</p>}
 
                                 <MDBInput
                                     wrapperClass='mb-4'
