@@ -29,6 +29,7 @@ export function Login() {
             if(response.status == 'error' && response.message) {
                 setError(response.message)
             }else {
+                setError('')
                 navigate('/profile')
                 reset()
             }
@@ -62,7 +63,7 @@ export function Login() {
                                 <MDBInput
                                     wrapperClass='mb-4'
                                     label='Password'
-                                    type='text'
+                                    type='password'
                                     {...register('password')}
                                 />
                                 <button type='submit' className='btn btn-outline-info' >Submit</button>

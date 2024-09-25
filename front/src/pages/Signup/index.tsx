@@ -48,6 +48,7 @@ export function Signup() {
             if(response.status == 'error' && response.message) {
                 setError(response.message)
             }else {
+                setError('')
                 navigate('/profile')
                 reset()
             }

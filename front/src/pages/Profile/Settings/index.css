@@ -1,0 +1,14 @@
+.settings {
+    display: flex;
+    justify-content: center;
+    height: 100vh
+}
+
+.block {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 80px;
+}
+
+
