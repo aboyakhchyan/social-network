@@ -83,7 +83,7 @@ export const Settings = () => {
                                 
                                 <MDBInput
                                     wrapperClass='mb-4'
-                                    type='text'
+                                    type='password'
                                     placeholder='Old password'
                                     {...registerPwd('old')}
                                 />
@@ -92,7 +92,7 @@ export const Settings = () => {
 
                                 <MDBInput
                                     wrapperClass='mb-4'
-                                    type='text'
+                                    type='password'
                                     placeholder='New password'
                                     {...registerPwd('newpwd')}
                                 />
@@ -110,7 +110,7 @@ export const Settings = () => {
                                 
                                 <MDBInput
                                     wrapperClass='mb-4'
-                                    type='text'
+                                    type='password'
                                     placeholder='Password'
                                     {...registerLog('password')}
                                 />
