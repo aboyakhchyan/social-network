@@ -11,6 +11,8 @@ export interface IUser {
 
 export type InputUser = Omit<IUser, 'id' | 'isPrivate' | 'cover' | 'picture'>
 
+export type ILogin = Omit<InputUser, 'name' | 'surname'>
+
 export interface IResponse {
     status: string
     message?: string
@@ -18,14 +20,10 @@ export interface IResponse {
     user?: IWideUser
 }
 
-export interface ILogin {
-    login: string
-    password: string
-}
 
 export interface IWideUser extends IUser{
     followers: IUser[]
-    followings: IUser[]
+    following: IUser[]
 }
 
 export interface IContextType {
@@ -36,9 +34,4 @@ export interface IContextType {
 export interface IChangePwd {
     old: string
     newpwd: string
-}
-
-export interface IError {
-    forPwd: string
-    forLog: string
 }

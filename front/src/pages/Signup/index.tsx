@@ -12,24 +12,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { InputUser } from '../../lib/types';
 import { handleSignup } from '../../lib/api';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
+import { SchemaSignUp } from '../../lib/yup';
 
-const Schema = yup.object({
-    name: yup.string().required().min(4).max(10).test(
-        'is-first-letter-capital',
-        'First letter must be capitalized',
-        value => value ? /^[A-Z]/.test(value) : false
-    ),
-    surname: yup.string().required().min(6).max(15).test(
-        'is-first-letter-capital',
-        'First letter must be capitalized',
-        value => value ? /^[A-Z]/.test(value) : false
-    ),
-    login: yup.string().required().min(6).max(15),
-    password: yup.string().required().min(6).max(15)
-})
+
 
 export function Signup() {
 
@@ -39,7 +26,7 @@ export function Signup() {
 
     
     const {register, handleSubmit, formState: {errors}, reset} = useForm<InputUser>({
-        resolver: yupResolver(Schema)
+        resolver: yupResolver(SchemaSignUp)
     })
 
     const onSubmit = (data: InputUser): void => {
