@@ -78,3 +78,120 @@
   .dashboard {
     height: 100vh;
   }
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    text-align: start;
+  }
+
+  .list img {
+    width: 200px;
+    height: 200px;
+    border-radius: 4px;
+    object-fit: cover;
+    border-radius: 1rem;
+  }
+
+  .list div {
+    background-color: rgb(221, 218, 218);
+    height: 280px;
+    padding: 15px;
+    border-radius: 1rem;
+    border: 1px solid black;
+  }
+
+  .search div {
+    height: 300px;
+  }
+
+  .isPrivacy {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 1rem;
+  }
+
+.posts {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.list-posts {
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.list-posts button {
+  margin-top: 15px;
+  width: 150px;
+}
+
+.list-posts h2 {
+  text-align: center;
+}
+
+.search {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.list-search {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  align-items: center;
+  gap: 20px;
+}
+
+.list-search h2{
+    text-align: center;
+}
+
+.list-search input {
+  width: 300px;
+}
+
+.account {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.list-account {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  align-items: center;
+  gap: 50px;
+  margin-top: 20px;
+}
+
+.account-profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+  gap: 40px;
+  background-color: black;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 800px
+}
+
+.account-profile img {
+  border: 1px solid black;
+}
+
+.text-posts {
+  text-align: center;
+}
+

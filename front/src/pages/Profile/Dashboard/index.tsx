@@ -1,7 +1,7 @@
 import { useOutletContext } from "react-router-dom"
 import { IContextType } from "../../../lib/types"
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography } from 'mdb-react-ui-kit';
-import { BASE_URL, DEFAULT_PIC } from "../../../lib/constant";
+import { BASE_URL, COVER, DEFAULT_PIC } from "../../../lib/constant";
 import { useRef } from "react";
 import { handleCoverUpload, handlePictureUpload } from "../../../lib/api";
 
@@ -68,7 +68,7 @@ export const Dashboard = () => {
                       }}>
 
                       <img 
-                          src="https://cdn.iconfinder.com/stored_data/1905698/128/png?token=1727458302-qKm7oQFux87jpABx%2F2thgV%2FDdIaLHUOuQ3DdJC6xsQk%3D"
+                          src={COVER}
                           style={{
                             width: 40, 
                             height: 40, 

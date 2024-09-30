@@ -1,2 +1,6 @@
 export const DEFAULT_PIC = 'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/cactus_cacti_avatar_pirate-512.png'
 export const BASE_URL = 'http://localhost:4002/'
+export const ACCOUNT_PRIVATE = 'https://cdn4.iconfinder.com/data/icons/users-111/25/user_lock-512.png'
+export const ACCOUNT_PUBLIC = 'https://cdn4.iconfinder.com/data/icons/users-111/24/user_unlock-512.png'
+export const COVER = 'https://cdn.iconfinder.com/stored_data/1905698/128/png?token=1727634740-pr8TGP6TrGBD6BVIBPb6exhBziCjR1AcPR%2FsI5ZuJY8%3D'
+export const IS_PRIVATE = 'https://cdn3.iconfinder.com/data/icons/web-hosting-71/60/private__lock__profile__account__secure-512.png'

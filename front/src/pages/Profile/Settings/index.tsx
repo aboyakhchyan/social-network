@@ -1,5 +1,6 @@
 import { EditLogin } from '../../../components/EditLogin'
 import { EditPassword } from '../../../components/EditPassword'
+import { EditPrivacy } from '../../../components/EditPrivacy'
 
 
 export const Settings = () => {
@@ -11,6 +12,7 @@ export const Settings = () => {
                     <h2>Settings</h2>
                     <EditPassword />
                     <EditLogin />
+                    <EditPrivacy />
                 </div>
         </div>
     )
