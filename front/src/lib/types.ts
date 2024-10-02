@@ -57,3 +57,8 @@ export interface IPost {
     title: string
     picture: string
 }
+
+export interface IRequest {
+    id: number
+    user: IUser
+}

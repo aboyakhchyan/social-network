@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { handleGetAccount } from "../../lib/api"
+import { handleCancelRequest, handleGetAccount, handleSendFollow, handleUnfollow } from "../../lib/api"
 import { IAccount } from "../../lib/types"
 import { BASE_URL, DEFAULT_PIC, IS_PRIVATE } from "../../lib/constant"
 import { Gallery } from "../../components/Gallery/Gallery"
 
 export const Account = () => {
 
+    const {id} = useParams()
+
     const [account, setAccount] = useState<IAccount | null>(null)
 
-    const navigate= useNavigate()
+    console.log(account)
 
-    const {id} = useParams()
+    const navigate= useNavigate()
 
     useEffect(() => {
         handleGetAccount(id)
@@ -23,6 +25,65 @@ export const Account = () => {
             }
         })  
     }, [])
+
+    const handleRequest = (): void => {
+        if(account) {
+            if(account.connection.following) {
+                unfollowUser()
+            }else if(account.connection.requested) {
+                cancelRequest()
+            }else {
+                followUser()
+            }
+        }
+    }
+
+    const followUser = (): void => {
+        if(account && account.id) {
+            handleSendFollow(account.id)
+            .then(response => {
+                if(response.status == 'following') {
+                    setAccount({
+                        ...account,
+                        connection: {...account.connection, following: true}
+                    })
+                }else if(response.status == 'requested') {
+                    setAccount({
+                        ...account,
+                        connection: {...account.connection, requested: true}
+                    })
+                }
+            })
+        }
+    }
+
+    const unfollowUser = (): void => {
+        if(account && account.id) {
+            handleUnfollow(account.id)
+            .then(response => {
+                if(response.status == 'unfollowed') {
+                    setAccount({
+                        ...account,
+                        connection: {...account.connection, following: false}
+                    })
+                }
+            })
+        }
+    }
+
+    const cancelRequest = (): void => {
+        if(account && account.id) {
+            handleCancelRequest(account.id)
+            .then(response => {
+                if(response.status == 'cancelled') {
+                    setAccount({
+                        ...account,
+                        connection: {...account.connection, requested: false}
+                    })
+                }
+            })
+        }
+    }
 
     return (
         <div className="gradient-custom-2 account">
@@ -45,11 +106,24 @@ export const Account = () => {
                         <h3>{account?.name}</h3>
                         <h3>{account?.surname}</h3>
                     </div>
+
+                    <button 
+                        className="btn btn-primary"
+                        onClick={handleRequest}
+                    >
+                        {
+                            account?.connection.following ?
+                            'unfollow' :
+                            account?.connection.requested ?
+                            'cancel request' :
+                            'follow'
+                        }
+                    </button>
                 </div>
                 
                 <div>   
                     {
-                        account?.isPrivate ? (
+                        (account?.isPrivate && !account.connection.following) ? (
                         <>
                             <img 
                                 src={IS_PRIVATE}

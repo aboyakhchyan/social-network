@@ -4,6 +4,7 @@ import { ACCOUNT_PRIVATE, ACCOUNT_PUBLIC } from "../../lib/constant"
 import { handleSetPrivacy } from "../../lib/api"
 import { toast } from "react-toastify"
 
+
 export const EditPrivacy = () => {
     const {account, setAccount} = useOutletContext<IContextType>()
 
@@ -14,7 +15,7 @@ export const EditPrivacy = () => {
             toast(!account.isPrivate ? 'The account has become private.' : 'The account has become open')
         })
     }
-
+    
     return (
         <div>
             <h5>Edit Privacy</h5>

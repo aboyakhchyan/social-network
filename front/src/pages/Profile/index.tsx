@@ -41,6 +41,7 @@ export const Profile = () => {
                 <NavLinkClone to='/profile/posts'>Posts</NavLinkClone>
                 <NavLinkClone to='/profile/followers'>Followers</NavLinkClone>
                 <NavLinkClone to='/profile/followings'>Followings</NavLinkClone>
+                {account.isPrivate ? <NavLinkClone to='/profile/requests'>Requests</NavLinkClone> : ''}
                 <button onClick={onLogout}>Logout</button>
             </nav>
 
