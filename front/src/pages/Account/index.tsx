@@ -1,25 +1,25 @@
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useOutletContext, useParams } from "react-router-dom"
 import { handleCancelRequest, handleGetAccount, handleSendFollow, handleUnfollow } from "../../lib/api"
-import { IAccount } from "../../lib/types"
+import { IAccount, IContextType } from "../../lib/types"
 import { BASE_URL, DEFAULT_PIC, IS_PRIVATE } from "../../lib/constant"
 import { Gallery } from "../../components/Gallery/Gallery"
 
 export const Account = () => {
 
+    const {account} = useOutletContext<IContextType>()
+
     const {id} = useParams()
 
-    const [account, setAccount] = useState<IAccount | null>(null)
+    const [found, setFound] = useState<IAccount | null>(null)
 
-    console.log(account)
-
-    const navigate= useNavigate()
+    const navigate = useNavigate()
 
     useEffect(() => {
         handleGetAccount(id)
         .then(response => {
             if(response.status == 'ok') {
-                setAccount(response.payload as IAccount)
+                setFound(response.payload as IAccount)
             }else {
                 navigate('/profile')
             }
@@ -27,10 +27,10 @@ export const Account = () => {
     }, [])
 
     const handleRequest = (): void => {
-        if(account) {
-            if(account.connection.following) {
+        if(found) {
+            if(found.connection.following) {
                 unfollowUser()
-            }else if(account.connection.requested) {
+            }else if(found.connection.requested) {
                 cancelRequest()
             }else {
                 followUser()
@@ -39,18 +39,18 @@ export const Account = () => {
     }
 
     const followUser = (): void => {
-        if(account && account.id) {
-            handleSendFollow(account.id)
+        if(found && found.id) {
+            handleSendFollow(found.id)
             .then(response => {
                 if(response.status == 'following') {
-                    setAccount({
-                        ...account,
-                        connection: {...account.connection, following: true}
+                    setFound({
+                        ...found,
+                        connection: {...found.connection, following: true}
                     })
                 }else if(response.status == 'requested') {
-                    setAccount({
-                        ...account,
-                        connection: {...account.connection, requested: true}
+                    setFound({
+                        ...found,
+                        connection: {...found.connection, requested: true}
                     })
                 }
             })
@@ -58,13 +58,13 @@ export const Account = () => {
     }
 
     const unfollowUser = (): void => {
-        if(account && account.id) {
-            handleUnfollow(account.id)
+        if(found && found.id) {
+            handleUnfollow(found.id)
             .then(response => {
                 if(response.status == 'unfollowed') {
-                    setAccount({
-                        ...account,
-                        connection: {...account.connection, following: false}
+                    setFound({
+                        ...found,
+                        connection: {...found.connection, following: false}
                     })
                 }
             })
@@ -72,16 +72,35 @@ export const Account = () => {
     }
 
     const cancelRequest = (): void => {
-        if(account && account.id) {
-            handleCancelRequest(account.id)
+        if(found && found.id) {
+            handleCancelRequest(found.id)
             .then(response => {
                 if(response.status == 'cancelled') {
-                    setAccount({
-                        ...account,
-                        connection: {...account.connection, requested: false}
+                    setFound({
+                        ...found,
+                        connection: {...found.connection, requested: false}
                     })
                 }
             })
+        }
+    }
+
+    const changePostStatus = (id: number): void => {
+        if(found) {
+            const temp = {...found}
+            const post = temp.posts.find(post => post.id == id)
+
+            if(post?.isLiked) {
+                post.likes = post.likes.filter(like => like.id !== account.id)
+            }else {
+                post?.likes.push(account)
+            }
+
+            if(post) {
+                post.isLiked = !post.isLiked
+            }
+
+            setFound(temp)
         }
     }
 
@@ -92,19 +111,19 @@ export const Account = () => {
                 <div 
                     className="account-profile"
                     style={{
-                        backgroundImage: `url(${account?.cover ?
-                            BASE_URL + account.cover : ''
+                        backgroundImage: `url(${found?.cover ?
+                            BASE_URL + found.cover : ''
                         })`,
                     }}
                     >
                     <img 
-                        src={!account?.picture ? DEFAULT_PIC : BASE_URL + account?.picture}
+                        src={!found?.picture ? DEFAULT_PIC : BASE_URL + found?.picture}
                         style={{width: 250, height: 250}}
                     />
 
                     <div>
-                        <h3>{account?.name}</h3>
-                        <h3>{account?.surname}</h3>
+                        <h3>{found?.name}</h3>
+                        <h3>{found?.surname}</h3>
                     </div>
 
                     <button 
@@ -112,9 +131,9 @@ export const Account = () => {
                         onClick={handleRequest}
                     >
                         {
-                            account?.connection.following ?
+                            found?.connection.following ?
                             'unfollow' :
-                            account?.connection.requested ?
+                            found?.connection.requested ?
                             'cancel request' :
                             'follow'
                         }
@@ -123,7 +142,7 @@ export const Account = () => {
                 
                 <div>   
                     {
-                        (account?.isPrivate && !account.connection.following) ? (
+                        (found?.isPrivate && !found.connection.following) ? (
                         <>
                             <img 
                                 src={IS_PRIVATE}
@@ -134,11 +153,14 @@ export const Account = () => {
                         )
                         : (
                             <>
-                                {account?.posts.length !== 0 ?
+                                {found?.posts.length !== 0 ?
                                  <h2 className="text-posts">Posts</h2>
                                 : <h2 className="text-posts">Post does not exist</h2>
                                 }
-                                <Gallery posts={account?.posts} />
+                                <Gallery 
+                                    posts={found?.posts}
+                                    onChangePostStatus={changePostStatus}
+                                    />
                             </>
                         )
                     } 

@@ -120,4 +120,14 @@ export const handleDecline = async (id: number): Promise<IResponse> => {
     return response.data
 }
 
+export const handlePostReaction = async (id: number): Promise<IResponse> => {
+    const response = await Axios.post(`/posts/react/${id}`)
 
+    return response.data
+}
+
+export const handleGetPostData = async (id: number): Promise<IResponse> => {
+    const response = await Axios.get(`/posts/${id}`)
+
+    return response.data
+} 

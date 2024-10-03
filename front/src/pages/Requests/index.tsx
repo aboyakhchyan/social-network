@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import { handleAccept, handleDecline, handleRequests } from "../../lib/api"
-import { IRequest } from "../../lib/types"
+import { IContextType, IRequest, IUser } from "../../lib/types"
 import { toast } from "react-toastify"
+import { useOutletContext } from "react-router-dom"
 
 export const Requests = () => {
+    const {account, setAccount} = useOutletContext<IContextType>()
 
     const [requests, setRequests] = useState<IRequest[]>([])
 
@@ -16,11 +18,19 @@ export const Requests = () => {
         })
     }, [])
 
+
     const onAccept = (id: number): void => {
         handleAccept(id)
         .then(response => {
             if(response.status == 'ok') {
+                const temp = requests.find(request => request.id == id)
+
                 setRequests(requests.filter(request => request.id != id))
+                
+                setAccount({
+                    ...account,
+                    followers: [...account.followers, temp?.user as IUser]
+                })
                 toast('Accepted')
             }
         })

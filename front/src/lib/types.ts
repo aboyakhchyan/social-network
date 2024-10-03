@@ -56,7 +56,13 @@ export interface IPost {
     id: number
     title: string
     picture: string
+    likes: IUser[]
+    isLiked?: boolean
+    comments?: IUser[]
+    userId?: number
 }
+
+
 
 export interface IRequest {
     id: number

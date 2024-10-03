@@ -99,7 +99,7 @@
     height: 280px;
     padding: 15px;
     border-radius: 1rem;
-    border: 1px solid black;
+    /* border: 1px solid black; */
   }
 
   .search div {
@@ -220,4 +220,87 @@
   width: 400px;
   border-radius: 1rem;
   justify-content: center;
+}
+
+.post {
+  display: flex;
+  position: relative;
+  width: 230px;
+  height: 200px;
+}
+
+.post-img {
+  position: absolute;
+  align-items: center;
+}
+
+.cover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: 1s;
+}
+
+.post:hover .cover {
+  background-color: black;
+  opacity: 0.6;
+}
+
+.like-btn {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  opacity: 0;
+  transition: 1s;
+  cursor: pointer;
+} 
+
+.post:hover .like-btn {
+  opacity: 1;
+}
+
+.post p {
+  position: absolute;
+  left: 10;
+  bottom: 0;
+}
+
+.post strong {
+  position: absolute;
+  left: 5;
+  bottom: 13%;
+}
+
+.post-data-img {
+  width: 450px;
+  height: 400px;
+}
+
+.list-data-post {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+}
+
+.list-data-post div {
+  background-color: gray;
+  padding: 10px;
+  border-radius: 1rem;
+  text-align: center;
+  color: white;
+}
+
+.post-title {
+  position: absolute;
+  left: 5;
+  bottom: 5%;
 }
