@@ -103,7 +103,7 @@ export const Account = () => {
             setFound(temp)
         }
     }
-    
+    console.log(found)
     
     const onBlockUser = (): void => {
         if(found && found.id) {
@@ -160,7 +160,7 @@ export const Account = () => {
                         }
                     </button>
 
-                    {(!found?.connection.blockedMe || !found?.connection.amIBlocked)  && (
+                    {!(found?.connection.blockedMe || found?.connection.amIBlocked)  && (
                     <button
                         className="btn btn-dark"
                         onClick={onBlockUser}
