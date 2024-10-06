@@ -1,21 +1,30 @@
 import { useEffect, useRef, useState } from "react"
-import { handleGetPosts, handlePostCreation } from "../../../lib/api"
+import { handleDeletePost, handleGetPosts, handlePostCreation } from "../../../lib/api"
 import { IPost } from "../../../lib/types"
 import { Gallery } from "../../../components/Gallery/Gallery"
 
 export const Posts = () => {
 
-    const [list, setList]= useState<IPost[]>([])
+    const [lists, setLists]= useState<IPost[]>([])
     const [text, setText] = useState<string>('')
+
+    const change = 'ok'
 
     const photo = useRef<HTMLInputElement | null>(null)
 
     useEffect(() => {
         handleGetPosts()
         .then(response => {
-            setList(response.payload as IPost[])
+            setLists(response.payload as IPost[])
         })
     }, [])
+
+    const onDeletePost = (id: number): void => {
+        handleDeletePost(id)
+        .then(response => {
+            setLists(lists.filter(list => list.id != response.payload))
+        })
+    }
 
     const handleUpload = (): void => {
         if(photo.current) {
@@ -28,7 +37,7 @@ export const Posts = () => {
 
                 handlePostCreation(form)
                 .then(response => {
-                    setList([...list, response.payload as IPost])
+                    setLists([...lists, response.payload as IPost])
                     setText('')
                 })
             }
@@ -63,7 +72,11 @@ export const Posts = () => {
                         >Upload</button>
             </div>
 
-                <Gallery posts={list}/>
+                <Gallery 
+                    posts={lists} 
+                    change={change}
+                    onDeletePost={onDeletePost}
+                    />
             </div>
         </div>
     )

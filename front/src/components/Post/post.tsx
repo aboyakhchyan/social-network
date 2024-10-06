@@ -31,7 +31,6 @@ export function Post({postId, handleClose}: IProps) {
   useEffect(() => {
     handleGetPostData(postId)
     .then(response => {
-      console.log(response)
       setPostData(response.payload as IPost)
     })
   }, [])

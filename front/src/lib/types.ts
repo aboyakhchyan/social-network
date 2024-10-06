@@ -31,8 +31,9 @@ export interface IConnection {
     following: boolean
     followsMe: boolean
     requested: boolean
-    blockMe: boolean
-    didBlock: boolean
+    blockedMe?: boolean
+    didIBlock: boolean
+    amIBlocked?: boolean
 }
 
 
@@ -61,7 +62,6 @@ export interface IPost {
     comments?: IUser[]
     userId?: number
 }
-
 
 
 export interface IRequest {

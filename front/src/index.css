@@ -256,7 +256,7 @@
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: 5;
   margin: auto;
   opacity: 0;
   transition: 1s;
@@ -303,4 +303,19 @@
   position: absolute;
   left: 5;
   bottom: 5%;
+}
+
+.post button {
+  position: absolute;
+  right: 5%;
+  bottom: 5%;
+  width: 70px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgb(18, 143, 154);
+  color: white;
+}
+
+.post button:hover {
+  background-color: rgb(88, 176, 176);
 }

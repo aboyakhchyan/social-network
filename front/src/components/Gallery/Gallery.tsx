@@ -4,12 +4,15 @@ import { BASE_URL, LIKE_BTN, NOT_LIKE_BTN } from "../../lib/constant"
 import { IPost } from "../../lib/types"
 import { Post } from "../Post/post"
 
+
 interface IProps {
     posts: IPost[] | undefined
+    change?: string
     onChangePostStatus?:(id: number) => void
+    onDeletePost?:(id: number) => void
 }
 
-export const Gallery:React.FC<IProps> = ({posts, onChangePostStatus}) => {
+export const Gallery:React.FC<IProps> = ({posts, change, onChangePostStatus, onDeletePost}) => {
 
     const [currentPost, setCurrentPost] = useState<number>(-1)
 
@@ -45,6 +48,13 @@ export const Gallery:React.FC<IProps> = ({posts, onChangePostStatus}) => {
                              />
                             <strong>{post.title}</strong>
                             <p><small>{post.likes.length} likes</small></p>
+                            {change && <button 
+                                            onClick={() => {
+                                                if(onDeletePost) {
+                                                    onDeletePost(post.id)
+                                                }
+                                            }}
+                                        >Delete</button>}
                         </div>
                     )
                 }

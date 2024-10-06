@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useOutletContext, useParams } from "react-router-dom"
-import { handleCancelRequest, handleGetAccount, handleSendFollow, handleUnfollow } from "../../lib/api"
+import { handleBlockUser, handleCancelRequest, handleGetAccount, handleSendFollow, handleUnfollow } from "../../lib/api"
 import { IAccount, IContextType } from "../../lib/types"
 import { BASE_URL, DEFAULT_PIC, IS_PRIVATE } from "../../lib/constant"
 import { Gallery } from "../../components/Gallery/Gallery"
@@ -103,6 +103,27 @@ export const Account = () => {
             setFound(temp)
         }
     }
+    
+    
+    const onBlockUser = (): void => {
+        if(found && found.id) {
+                handleBlockUser(found.id)
+                .then(response => {
+                if(response.message == 'blocked') {
+                    setFound({
+                        ...found,
+                        cover: '',
+                        picture: '',
+                        posts: [],
+                        connection: {...found?.connection, didIBlock: true}
+                    })
+                }else if(response.message == 'unblocked') {
+                    setFound(response.payload as IAccount)
+                }
+        })
+      }
+    }
+
 
     return (
         <div className="gradient-custom-2 account">
@@ -138,10 +159,26 @@ export const Account = () => {
                             'follow'
                         }
                     </button>
+
+                    {(!found?.connection.blockedMe || !found?.connection.amIBlocked)  && (
+                    <button
+                        className="btn btn-dark"
+                        onClick={onBlockUser}
+                    >{
+                        found?.connection.didIBlock ?
+                        'unblock' :
+                        'block'
+                     }
+                    </button>
+                    )}
+                    
                 </div>
                 
                 <div>   
                     {
+                        (found?.connection.blockedMe || found?.connection.amIBlocked) ? 
+                        <h2 className="text-posts">You have been blocked</h2> :
+
                         (found?.isPrivate && !found.connection.following) ? (
                         <>
                             <img 

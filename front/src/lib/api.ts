@@ -131,3 +131,15 @@ export const handleGetPostData = async (id: number): Promise<IResponse> => {
 
     return response.data
 } 
+
+export const handleBlockUser = async (id: string): Promise<IResponse> => {
+    const response = await Axios.post(`/block/${id}`)
+
+    return response.data
+}
+
+export const handleDeletePost = async (id: number): Promise<IResponse> => {
+    const response = await Axios.delete(`/posts/${id}`)
+
+    return response.data
+}
