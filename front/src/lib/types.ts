@@ -59,7 +59,7 @@ export interface IPost {
     picture: string
     likes: IUser[]
     isLiked?: boolean
-    comments?: IUser[]
+    comments: IComment[]
     userId?: number
 }
 
@@ -67,4 +67,24 @@ export interface IPost {
 export interface IRequest {
     id: number
     user: IUser
+}
+
+
+export interface IComment {
+    content: string
+    id: number
+    user: {
+        id: string
+        name: string
+        picture: string
+        surname: string
+    }
+}
+
+export interface INewComment {
+    content: string
+    id: number
+    postId: string
+    user: IUser
+    userId: number
 }

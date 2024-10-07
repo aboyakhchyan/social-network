@@ -5,9 +5,10 @@ import { IPost } from "../../lib/types"
 import { Post } from "../Post/post"
 
 
+
 interface IProps {
     posts: IPost[] | undefined
-    change?: string
+    change?: boolean
     onChangePostStatus?:(id: number) => void
     onDeletePost?:(id: number) => void
 }

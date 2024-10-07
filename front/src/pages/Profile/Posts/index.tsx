@@ -8,7 +8,7 @@ export const Posts = () => {
     const [lists, setLists]= useState<IPost[]>([])
     const [text, setText] = useState<string>('')
 
-    const change = 'ok'
+    const change = true
 
     const photo = useRef<HTMLInputElement | null>(null)
 

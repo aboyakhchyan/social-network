@@ -143,3 +143,27 @@ export const handleDeletePost = async (id: number): Promise<IResponse> => {
 
     return response.data
 }
+
+export const handleAddComment = async (text: string, id: number): Promise<IResponse> => {
+    const response = await Axios.post(`/posts/comment/${id}`, { text })
+
+    return response.data
+}
+
+export const handleRemoveComment = async (id: number): Promise<IResponse> => {
+    const response = await Axios.delete(`/posts/comment/${id}`)
+
+    return response.data
+}
+
+export const handleGetFollowers = async (): Promise<IResponse> => {
+    const response = await Axios.get(`/followers`)
+
+    return response.data
+}
+
+export const handleGetFollowing = async (): Promise<IResponse> => {
+    const response = await Axios.get(`/following`)
+
+    return response.data
+}
