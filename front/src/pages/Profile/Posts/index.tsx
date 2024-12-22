@@ -73,6 +73,7 @@ export const Posts = () => {
             </div>
 
                 <Gallery 
+                    limit={6}
                     posts={lists} 
                     change={change}
                     onDeletePost={onDeletePost}

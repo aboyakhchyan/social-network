@@ -75,7 +75,8 @@ export const Dashboard = () => {
                             cursor: 'pointer', 
                             position: 'absolute', 
                             right: 10, 
-                            bottom: 5
+                            bottom: 5,
+                            
                           }}
                           onClick={() => cover.current?.click()}
                        />

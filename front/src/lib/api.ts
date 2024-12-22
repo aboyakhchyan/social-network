@@ -167,3 +167,9 @@ export const handleGetFollowing = async (): Promise<IResponse> => {
 
     return response.data
 }
+
+export const handleGetHashtag = async (hash: string): Promise<IResponse> => {
+    const response = await Axios.get(`/hashtag/${hash}`)
+
+    return response.data
+}

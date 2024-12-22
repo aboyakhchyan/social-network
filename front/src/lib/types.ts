@@ -60,7 +60,8 @@ export interface IPost {
     likes: IUser[]
     isLiked?: boolean
     comments: IComment[]
-    userId?: number
+    userId: string
+    hashtags?: string[]
 }
 
 
@@ -81,10 +82,9 @@ export interface IComment {
     }
 }
 
-export interface INewComment {
-    content: string
+export interface IHash {
     id: number
-    postId: string
-    user: IUser
+    picture: string
+    title: string
     userId: number
 }

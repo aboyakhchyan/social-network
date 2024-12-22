@@ -3,11 +3,13 @@ import { IUser } from "../../../lib/types"
 import { handleSearch } from "../../../lib/api"
 import { BASE_URL, DEFAULT_PIC } from "../../../lib/constant"
 import { useNavigate } from "react-router-dom"
+import { useDebounce } from "../../../hooks/hooks"
 
 export const Search = () => {
 
     const [users, setUsers] = useState<IUser[]>([])
     const [text, setText] = useState<string>('') 
+    const debounce = useDebounce(text, 500)
 
     const navigate = useNavigate()
 
@@ -15,13 +17,13 @@ export const Search = () => {
         if(!text.trim()) {
             setUsers([])
         }else {
-            handleSearch(text)
+            handleSearch(debounce)
             .then(response => {
                 setUsers(response.payload as IUser[])
             })
         }
 
-    }, [text])
+    }, [debounce])
 
     return (
         <div className="gradient-custom-2 search">

@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useEffect, useState } from 'react';
 import { handleAddComment, handleGetPostData, handleRemoveComment } from '../../lib/api';
-import { INewComment, IPost } from '../../lib/types';
+import { IComment, IPost } from '../../lib/types';
 import { BASE_URL, DEFAULT_PIC } from '../../lib/constant';
 
 const style = {
@@ -19,15 +19,17 @@ const style = {
 };
 
 export interface IProps{
+    change?: boolean
     postId: number
     handleClose:() => void
 }
 
 
-export function Post({postId, handleClose}: IProps) {
+export function Post({postId, handleClose, change}: IProps) {
 
     const [text, setText] = useState<string>('')
     const [postData, setPostData] = useState<IPost | null>(null)
+    const [error, setError] = useState<string>('')
 
     useEffect(() => {
       handleGetPostData(postId)
@@ -36,32 +38,27 @@ export function Post({postId, handleClose}: IProps) {
       })
     }, [])
 
+
     const onAddComment = (event: React.FormEvent<HTMLFormElement>): void => {
       event.preventDefault()
-      handleAddComment(text, postId)
-      .then((response) => {
-          if(postData) {
-            const newComment = response.payload as INewComment
-
-            setPostData({
-            ...postData,
-            comments: [
-              ...postData.comments,
-              {
-                content: newComment.content,
-                id: newComment.id,
-                user: {
-                  name: newComment.user.name,
-                  id: newComment.user.id,
-                  picture: newComment.user.picture,
-                  surname: newComment.user.surname
-                }
-              }
-            ]
+        if(text.trim()) {
+          handleAddComment(text, postId)
+          .then((response) => {
+              if(postData) {
+                setPostData({
+                ...postData,
+                comments: [
+                  ...postData.comments,
+                  response.payload as IComment
+                ]
+              })
+            }
+              setText('')
+              setError('')
           })
+        }else {
+          setError('error')
         }
-          setText('')
-      })
     }
    
 
@@ -109,6 +106,7 @@ export function Post({postId, handleClose}: IProps) {
 
                 <form className='form-comment' onSubmit={onAddComment}>
                     <textarea
+                        className={error && error}
                         value={text}
                         placeholder='Add comment'
                         onChange={event => {
@@ -133,10 +131,10 @@ export function Post({postId, handleClose}: IProps) {
                             </div>
                             
 
-                            <button
+                            {!change && comment.user.id != postData.userId && <button
                                 className='btn btn-outline-danger'
                                 onClick={() => onRemoveComment(comment.id)}
-                            >Delete</button>
+                            >Delete</button>}
                         </div>
                       )
                      }

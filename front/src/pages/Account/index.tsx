@@ -103,7 +103,7 @@ export const Account = () => {
             setFound(temp)
         }
     }
-    console.log(found)
+    
     
     const onBlockUser = (): void => {
         if(found && found.id) {
@@ -195,6 +195,7 @@ export const Account = () => {
                                 : <h2 className="text-posts">Post does not exist</h2>
                                 }
                                 <Gallery 
+                                    limit={6}
                                     posts={found?.posts}
                                     onChangePostStatus={changePostStatus}
                                     />

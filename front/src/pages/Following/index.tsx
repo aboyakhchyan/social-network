@@ -19,7 +19,7 @@ export const Following = () => {
     return (
         <div className="gradient-custom-2 followers">
             <div className="list-followers">
-                <h3>Followers</h3>
+                <h3>Following</h3>
 
                 <div className="block-followers">
                     {

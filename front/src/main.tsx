@@ -13,6 +13,7 @@ import { Account } from './pages/Account'
 import { Requests } from './pages/Requests'
 import { Followers } from './pages/Followers'
 import { Following } from './pages/Following'
+import { Hashtags } from './pages/Hashtags'
 
 const routes = createBrowserRouter([
   {
@@ -29,7 +30,7 @@ const routes = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <Dashboard/>
+        element: <Dashboard/>,
       },
       {
         path: 'settings',
@@ -58,9 +59,13 @@ const routes = createBrowserRouter([
       {
         path: 'following',
         element: <Following/>
+      },
+      {
+        path: 'post/hashtags/:hash',
+        element: <Hashtags/>
       }
     ]
-  }
+  },
 ])
 
 createRoot(document.getElementById('root')!).render(
